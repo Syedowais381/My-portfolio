@@ -80,17 +80,6 @@ export default function Navbar() {
         <a className="brand" href="#home" aria-label="Go to home section">
           SOQ
         </a>
-        <button
-          type="button"
-          className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-          aria-controls="main-navigation"
-          onClick={() => setMenuOpen((prev) => !prev)}
-        >
-          <span />
-          <span />
-        </button>
         <nav aria-label="Main navigation">
           <ul id="main-navigation" className={`nav-links ${menuOpen ? "is-open" : ""}`}>
             {links.map((link) => (
@@ -102,6 +91,17 @@ export default function Navbar() {
             ))}
           </ul>
         </nav>
+        <button
+          type="button"
+          className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          <span />
+          <span />
+        </button>
       </div>
     </header>
   );

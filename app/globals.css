@@ -110,7 +110,7 @@ h2::after {
   position: fixed;
   inset: 0 0 auto;
   z-index: 20;
-  padding-top: var(--space-2);
+  padding-block: var(--space-2);
   background: transparent;
   border-bottom: 0;
   transition: background-color 280ms ease, backdrop-filter 280ms ease, box-shadow 280ms ease;
@@ -160,39 +160,44 @@ h2::after {
   color: var(--text-primary);
   width: 42px;
   height: 42px;
+  min-width: 42px;
+  min-height: 42px;
   border-radius: 12px;
   padding: 0;
   cursor: pointer;
   position: relative;
   z-index: 25;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .menu-toggle span {
   position: absolute;
-  left: 11px;
+  left: 50%;
+  top: 50%;
   width: 18px;
   height: 1.5px;
   border-radius: 999px;
   background: var(--text-primary);
-  transition: transform 220ms ease, top 220ms ease, opacity 220ms ease;
-}
-
-.menu-toggle span:first-child {
-  top: 16px;
-}
-
-.menu-toggle span:last-child {
-  top: 24px;
+  transform-origin: center;
+  transition: transform 220ms ease, opacity 220ms ease;
 }
 
 .menu-toggle.is-open span:first-child {
-  top: 20px;
-  transform: rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .menu-toggle.is-open span:last-child {
-  top: 20px;
-  transform: rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.menu-toggle span:first-child {
+  transform: translate(-50%, calc(-50% - 4px));
+}
+
+.menu-toggle span:last-child {
+  transform: translate(-50%, calc(-50% + 4px));
 }
 
 .brand {
@@ -776,7 +781,7 @@ h2::after {
   }
 
   .navbar {
-    padding-top: var(--space-1);
+    padding-block: var(--space-1);
   }
 
   .nav-inner {

@@ -5,7 +5,7 @@ export default function ContactSection() {
     <section id="contact" className="section contact-section">
       <div className="container">
         <Reveal>
-          <h2>Let&rsquo;s build scalable systems.</h2>
+          <h2>Let&rsquo;s build something that works.</h2>
           <a className="contact-link" href="mailto:oquadri381@gmail.com">
             oquadri381@gmail.com
           </a>

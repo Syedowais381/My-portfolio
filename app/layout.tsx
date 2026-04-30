@@ -15,9 +15,9 @@ const bodyFont = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Syed Owais Quadri | Full-Stack Java Engineer",
+  title: "Syed Owais Quadri | Full-Stack Developer & Automation Specialist",
   description:
-    "Portfolio of Syed Owais Quadri - Full-Stack Java Engineer focused on scalable backend systems, modern React applications, and automation workflows.",
+    "Full-Stack Developer and Automation Specialist. I build React + Spring Boot applications and design automation systems using GHL, n8n, Make, Zapier, and Airtable.",
 };
 
 export default function RootLayout({

@@ -2,6 +2,23 @@ import Reveal from "@/components/Reveal";
 
 const groups = [
   {
+    title: "Automation & Systems",
+    items: [
+      "n8n",
+      "GHL",
+      "WhatsApp Automation",
+      "Instagram / Facebook Automation",
+      "CRM funnels",
+      "Make (Integromat)",
+      "Zapier",
+      "Airtable",
+      "Calendly",
+      "Speed-to-Lead Systems",
+      "Web Scrapers (Real Estate & Travel)",
+      "CRM Funnels & Pipelines",
+    ],
+  },
+  {
     title: "Full-Stack Engineering",
     items: [
       "React",
@@ -13,10 +30,6 @@ const groups = [
       "AWS EC2",
       "Vercel / Netlify",
     ],
-  },
-  {
-    title: "Automation & Systems",
-    items: ["n8n", "GHL", "WhatsApp Automation", "Instagram / Facebook Automation", "CRM funnels"],
   },
   {
     title: "Backend & Deployment",

@@ -6,17 +6,17 @@ export default function HeroSection() {
       <div className="hero-glow" aria-hidden="true" />
       <div className="container">
         <Reveal>
-          <p className="eyebrow">Full-Stack Java Engineer</p>
+          <p className="eyebrow">Full-Stack Developer & Automation Specialist</p>
         </Reveal>
         <Reveal delayMs={80}>
           <h1>
             Syed Owais Quadri
-            <span>Building production-grade React + Spring Boot systems with cloud-first deployment.</span>
+            <span>Building production-grade web systems and intelligent automation workflows that drive real business results.</span>
           </h1>
         </Reveal>
         <Reveal delayMs={160}>
           <p className="hero-subtext">
-            Building scalable backend systems, full-stack applications, and intelligent automation workflows.
+            From React + Spring Boot applications to GHL funnels, n8n pipelines, and speed-to-lead systems — I build things that scale and convert.
           </p>
         </Reveal>
         <Reveal delayMs={220}>

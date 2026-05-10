@@ -72,6 +72,13 @@ main {
   padding: var(--space-12) 0;
 }
 
+.section-intro {
+  max-width: 760px;
+  color: #b5bfc8;
+  line-height: 1.72;
+  margin-bottom: var(--space-4);
+}
+
 h1,
 h2,
 h3,
@@ -365,11 +372,39 @@ h2::after {
 }
 
 .expertise-block {
-  padding-right: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid rgba(14, 94, 78, 0.24);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(15, 61, 46, 0.14), rgba(15, 61, 46, 0.04));
+  box-shadow: inset 0 1px 0 rgba(14, 94, 78, 0.22);
+}
+
+.expertise-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.expertise-level {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b7f7da;
+  border: 1px solid rgba(80, 212, 157, 0.3);
+  background: rgba(80, 212, 157, 0.1);
+  border-radius: 999px;
+  padding: 5px 10px;
 }
 
 .expertise-block h3 {
   font-size: 1.08rem;
+  margin-bottom: var(--space-3);
+}
+
+.expertise-block p {
+  color: #bac3cc;
+  line-height: 1.68;
   margin-bottom: var(--space-3);
 }
 
@@ -384,6 +419,19 @@ h2::after {
 .expertise-block li {
   color: var(--text-secondary);
   line-height: 1.4;
+  position: relative;
+  padding-left: 14px;
+}
+
+.expertise-block li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(80, 212, 157, 0.75);
 }
 
 .projects {
@@ -398,22 +446,20 @@ h2::after {
 }
 
 .project-item {
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid rgba(14, 94, 78, 0.18);
+  padding: var(--space-4);
+  border: 1px solid rgba(14, 94, 78, 0.26);
   border-radius: 18px;
-  padding-inline: var(--space-2);
-  margin-inline: calc(var(--space-2) * -1);
+  background: linear-gradient(180deg, rgba(15, 61, 46, 0.12), rgba(15, 61, 46, 0.04));
   transition: background-color 220ms ease, border-color 220ms ease;
 }
 
 .project-item:hover {
-  background: rgba(15, 61, 46, 0.06);
-  border-bottom-color: rgba(14, 94, 78, 0.32);
+  background: linear-gradient(180deg, rgba(15, 61, 46, 0.2), rgba(15, 61, 46, 0.06));
+  border-color: rgba(14, 94, 78, 0.45);
 }
 
 .project-item:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .project-header {
@@ -464,6 +510,25 @@ h2::after {
   list-style: none;
   display: grid;
   gap: var(--space-1);
+}
+
+.project-outcomes {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-outcomes span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border-radius: 999px;
+  padding: 6px 12px;
+  border: 1px solid rgba(96, 211, 161, 0.36);
+  background: rgba(65, 169, 126, 0.14);
+  color: #d5f7ea;
+  font-size: 0.8rem;
 }
 
 .screenshot-row {
@@ -527,7 +592,7 @@ h2::after {
 
 .automation-layout {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   gap: var(--space-8);
   align-items: start;
 }
@@ -541,8 +606,8 @@ h2::after {
   position: relative;
   padding: var(--space-2) var(--space-3);
   border: 1px solid rgba(234, 234, 234, 0.1);
-  border-radius: 12px;
-  background: rgba(15, 61, 46, 0.12);
+  border-radius: 14px;
+  background: rgba(15, 61, 46, 0.18);
   transition: transform 250ms ease, border-color 250ms ease;
 }
 
@@ -559,6 +624,109 @@ h2::after {
 .automation-item:hover {
   transform: translateY(-2px);
   border-color: rgba(14, 94, 78, 0.55);
+}
+
+.case-studies {
+  border-top: 1px solid rgba(14, 94, 78, 0.22);
+  border-bottom: 1px solid rgba(14, 94, 78, 0.22);
+  background:
+    radial-gradient(circle at 15% 12%, rgba(65, 169, 126, 0.09), transparent 32%),
+    radial-gradient(circle at 80% 84%, rgba(14, 94, 78, 0.08), transparent 36%);
+}
+
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.case-study-card {
+  border: 1px solid rgba(14, 94, 78, 0.28);
+  border-radius: 18px;
+  padding: var(--space-3);
+  background: linear-gradient(180deg, rgba(15, 61, 46, 0.16), rgba(15, 61, 46, 0.05));
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.case-study-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(80, 212, 157, 0.46);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.22);
+}
+
+.case-study-image {
+  margin: 0 0 var(--space-3);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(14, 94, 78, 0.34);
+}
+
+.case-study-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.case-study-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-1);
+}
+
+.case-study-market {
+  color: #b8f7dd;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-1);
+}
+
+.case-study-header p {
+  color: #b5bec7;
+  line-height: 1.7;
+}
+
+.case-study-stack {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.case-study-stack span {
+  border: 1px solid rgba(137, 148, 160, 0.35);
+  color: #d5dde5;
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 0.78rem;
+  background: rgba(101, 116, 134, 0.14);
+}
+
+.case-study-details {
+  margin-top: var(--space-3);
+  border-radius: 12px;
+  border: 1px solid rgba(14, 94, 78, 0.24);
+  background: rgba(11, 20, 18, 0.62);
+  padding: 10px 12px;
+}
+
+.case-study-details summary {
+  cursor: pointer;
+  color: #d8e2ea;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.case-study-flow {
+  margin: var(--space-2) 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.case-study-flow li {
+  color: #afbac5;
+  line-height: 1.5;
 }
 
 .dsa-section {
@@ -720,6 +888,10 @@ h2::after {
     gap: var(--space-5);
   }
 
+  .case-study-grid {
+    grid-template-columns: 1fr;
+  }
+
   .hero h1 {
     max-width: 760px;
   }
@@ -811,10 +983,11 @@ h2::after {
   }
 
   .project-item {
-    padding-bottom: var(--space-5);
-    padding-inline: 0;
-    margin-inline: 0;
-    border-radius: 0;
+    padding: var(--space-3);
+  }
+
+  .case-study-image img {
+    height: 200px;
   }
 }
 

@@ -4,9 +4,11 @@ import Reveal from "@/components/Reveal";
 type Project = {
   title: string;
   summary: string;
+  role: string;
   stack: string;
   features: string;
   architecture: string;
+  outcomes?: string[];
   details?: string[];
   screenshots?: { src: string; alt: string }[];
   screenshotPlaceholders?: number;
@@ -17,10 +19,15 @@ type Project = {
 const projects: Project[] = [
   {
     title: "CodePulz",
-    summary: "Case-study style developer platform focused on performance, reliability, and clean architecture.",
+    summary: "Developer operations platform designed to centralize productivity analytics and team workflows.",
+    role: "Full-stack engineer",
     stack: "React, Spring Boot, PostgreSQL, Docker, Railway",
     features: "Role-based modules, secure auth flows, and optimized API contracts.",
     architecture: "Frontend consumes versioned REST endpoints from a modular Spring Boot service layer with PostgreSQL persistence.",
+    outcomes: [
+      "Improved dashboard response behavior with optimized API contracts.",
+      "Reduced deployment friction through a consistent Docker release flow.",
+    ],
     details: [
       "Problem: fragmented workflows for developer productivity and analytics.",
       "Architecture: React client + Spring Boot API + relational persistence + containerized deployment.",
@@ -34,10 +41,15 @@ const projects: Project[] = [
   },
   {
     title: "DDoS Tracker",
-    summary: "Monitoring-oriented full-stack implementation demonstrating backend simulation and deployment discipline.",
+    summary: "Security-focused telemetry dashboard that simulates attack traffic and visualizes incident trends.",
+    role: "Backend + dashboard implementation",
     stack: "React, Spring Boot, MySQL (Railway), Docker Hub, Railway",
     features: "Dummy attack telemetry generation, normalized event storage, and real-time style frontend consumption.",
     architecture: "Synthetic event generator writes to MySQL; backend exposes filtered metrics APIs consumed by the dashboard.",
+    outcomes: [
+      "Created reproducible attack simulation data for testing monitoring UX.",
+      "Structured event persistence for cleaner filtering and trend analysis.",
+    ],
     video: {
       src: "/projects/ddos-demo.mp4",
       title: "DDoS Tracker demo video",
@@ -45,19 +57,29 @@ const projects: Project[] = [
   },
   {
     title: "StreakTracker",
-    summary: "Habit tracking product focused on consistency and leaderboard competition.",
+    summary: "Realtime habit-tracking product with social motivation through rankings and streak visibility.",
+    role: "Product engineer",
     stack: "Next.js, Supabase PostgreSQL, Realtime subscriptions",
     features: "Daily habit logging, weekly leaderboard, and live updates for active users.",
     architecture: "Next.js client backed by Supabase auth, PostgreSQL tables, and realtime channels for instant state sync.",
+    outcomes: [
+      "Enabled instant leaderboard refresh with realtime subscriptions.",
+      "Built a clear user loop for daily logging and streak retention.",
+    ],
     liveUrl: "https://streak.aidaptics.com/",
     screenshots: [{ src: "/projects/streaktracker-1.png", alt: "StreakTracker website screenshot 1" }],
   },
   {
     title: "Consultancy Website",
-    summary: "Service showcase website built with a UI-first approach and fast loading strategy.",
+    summary: "Conversion-oriented consultancy site crafted around trust signals, clarity, and speed.",
+    role: "Frontend + UX",
     stack: "Next.js, Responsive UI architecture",
     features: "Service discovery sections, trust-focused visual hierarchy, and lightweight interaction patterns.",
     architecture: "Static-forward rendering with component-level composition to maximize speed and maintainability.",
+    outcomes: [
+      "Improved service discoverability with tighter content hierarchy.",
+      "Maintained lightweight UX while preserving brand consistency.",
+    ],
     liveUrl: "https://ckeng.netlify.app/",
     screenshots: [{ src: "/projects/consultancy-1.png", alt: "Consultancy website screenshot 1" }],
   },
@@ -69,6 +91,10 @@ export default function ProjectsSection() {
       <div className="container">
         <Reveal>
           <h2>Featured Projects</h2>
+          <p className="section-intro">
+            Selected builds where I owned architecture decisions, implementation, and deployment with a case-study
+            mindset focused on outcomes.
+          </p>
         </Reveal>
         <div className="project-list">
           {projects.map((project, index) => (
@@ -77,6 +103,9 @@ export default function ProjectsSection() {
                 <h3>{project.title}</h3>
                 <p>{project.summary}</p>
               </div>
+              <p>
+                <span>Role:</span> {project.role}
+              </p>
               <p>
                 <span>Stack:</span> {project.stack}
               </p>
@@ -100,6 +129,13 @@ export default function ProjectsSection() {
                     <li key={detail}>{detail}</li>
                   ))}
                 </ul>
+              ) : null}
+              {project.outcomes ? (
+                <div className="project-outcomes">
+                  {project.outcomes.map((outcome) => (
+                    <span key={outcome}>{outcome}</span>
+                  ))}
+                </div>
               ) : null}
               {project.screenshots && project.screenshots.length > 0 ? (
                 <div className="screenshot-row" aria-label={`${project.title} screenshots`}>

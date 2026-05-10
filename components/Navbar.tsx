@@ -7,6 +7,7 @@ const links = [
   { href: "#expertise", label: "Expertise" },
   { href: "#projects", label: "Projects" },
   { href: "#automation", label: "Automation" },
+  { href: "#case-studies", label: "Case Studies" },
   { href: "#dsa", label: "DSA" },
   { href: "#contact", label: "Contact" },
 ];

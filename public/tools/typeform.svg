@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" role="img" aria-label="Typeform">
+  <rect x="2" y="4" width="24" height="24" rx="6" fill="#262627"/>
+  <rect x="8" y="11" width="12" height="3" rx="1.5" fill="#fff"/>
+  <rect x="8" y="17" width="8" height="3" rx="1.5" fill="#fff"/>
+  <text x="34" y="21" fill="#EAEAEA" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">Typeform</text>
+</svg>

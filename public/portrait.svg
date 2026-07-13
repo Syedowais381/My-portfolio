@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" fill="none">
+  <rect width="360" height="480" rx="18" fill="#0f1412"/>
+  <rect x="1" y="1" width="358" height="478" rx="17" stroke="rgba(14,94,78,0.45)" stroke-width="2"/>
+  <circle cx="180" cy="168" r="64" fill="rgba(14,94,78,0.22)"/>
+  <path d="M96 360c18-52 58-84 84-84s66 32 84 84" stroke="rgba(80,212,157,0.35)" stroke-width="2" fill="rgba(14,94,78,0.12)"/>
+  <text x="180" y="420" text-anchor="middle" fill="rgba(234,234,234,0.45)" font-family="Segoe UI, sans-serif" font-size="13" letter-spacing="0.08em">ADD PORTRAIT.JPG</text>
+</svg>

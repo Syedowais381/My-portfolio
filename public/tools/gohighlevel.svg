@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <path d="M8 32L20 8L32 32H8Z" fill="#FBC02D"/>
+  <path d="M28 32L40 8L52 32H28Z" fill="#00E5FF"/>
+  <path d="M48 32L60 8L72 32H48Z" fill="#2979FF"/>
+  <text x="78" y="26" fill="#EAEAEA" font-family="Segoe UI, sans-serif" font-size="11" font-weight="700">GHL</text>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" role="img" aria-label="Apify">
+  <path d="M6 26L18 6L30 26H6Z" fill="#97D700"/>
+  <path d="M12 22h12L18 10 12 22z" fill="#0B1420"/>
+  <text x="38" y="21" fill="#EAEAEA" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700">Apify</text>
+</svg>

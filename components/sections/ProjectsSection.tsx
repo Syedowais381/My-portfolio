@@ -12,11 +12,40 @@ type Project = {
   details?: string[];
   screenshots?: { src: string; alt: string }[];
   screenshotPlaceholders?: number;
+  featuredPreview?: boolean;
   video?: { src: string; title: string };
   liveUrl?: string;
 };
 
 const projects: Project[] = [
+  {
+    title: "Rig Base",
+    summary:
+      "Enterprise operations platform — the operating system for serious businesses. A structured workspace for finance, inventory, HR, CRM, and supply chain, configured to your industry rather than a generic template.",
+    role: "Full-stack product engineer",
+    stack: "Next.js, TypeScript, ERP modules, Role-based access, AI insights",
+    features:
+      "Six connected ERP domains (Dashboard, Finance, HR, Inventory, Supply Chain, CRM), guided onboarding, governed permissions, and on-demand executive AI analysis.",
+    architecture:
+      "Modular workspace architecture with shared permissions, data import tooling, and period-aware KPI dashboards across all enabled business modules.",
+    outcomes: [
+      "Unified finance, inventory, HR, CRM, and supply chain in one controlled workspace.",
+      "Structured onboarding with departments, modules, and KPIs defined upfront.",
+      "Executive visibility with configurable metrics and AI insight requests.",
+    ],
+    details: [
+      "Problem: owners and operators need clarity, control, and accountable reporting across disconnected business tools.",
+      "Solution: industry-configured ERP workspace with six operational domains on one connected system.",
+      "Capabilities: operational visibility, integrated ERP core, governed access, and executive AI insights grounded in live data.",
+      "Workflow: guided setup, module selection, role configuration, data import, and day-to-day execution.",
+    ],
+    liveUrl: "https://rig-base.vercel.app/",
+    featuredPreview: true,
+    screenshots: [
+      { src: "/projects/rig-base-1.png", alt: "Rig Base homepage hero and workspace preview" },
+      { src: "/projects/rig-base-modules.png", alt: "Rig Base platform capabilities and ERP modules" },
+    ],
+  },
   {
     title: "CodePulz",
     summary: "Developer operations platform designed to centralize productivity analytics and team workflows.",
@@ -87,13 +116,14 @@ const projects: Project[] = [
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="section projects">
+    <section id="web-dev" className="section projects">
       <div className="container">
         <Reveal>
-          <h2>Featured Projects</h2>
+          <p className="projects-eyebrow">Product Engineering</p>
+          <h2>Web Dev Projects</h2>
           <p className="section-intro">
-            Selected builds where I owned architecture decisions, implementation, and deployment with a case-study
-            mindset focused on outcomes.
+            Full-stack applications and product builds — from architecture and implementation to deployment, with a
+            case-study mindset focused on outcomes.
           </p>
         </Reveal>
         <div className="project-list">
@@ -138,7 +168,10 @@ export default function ProjectsSection() {
                 </div>
               ) : null}
               {project.screenshots && project.screenshots.length > 0 ? (
-                <div className="screenshot-row" aria-label={`${project.title} screenshots`}>
+                <div
+                  className={`screenshot-row ${project.featuredPreview ? "screenshot-row-featured" : ""}`.trim()}
+                  aria-label={`${project.title} screenshots`}
+                >
                   {project.screenshots.map((shot) => (
                     project.liveUrl ? (
                       <a

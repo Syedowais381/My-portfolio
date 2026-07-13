@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" role="img" aria-label="Pipedrive">
+  <rect x="2" y="6" width="20" height="20" rx="5" fill="#017737"/>
+  <path d="M8 22V10h3.2c2.4 0 3.8 1.2 3.8 3.1 0 1.3-.6 2.3-1.7 2.8L17 22h-3.1l-2.5-5.2H11V22H8zm3-7.7c1 0 1.5-.5 1.5-1.4 0-.9-.5-1.4-1.5-1.4H11v2.8h0z" fill="#fff"/>
+  <text x="30" y="21" fill="#EAEAEA" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700">Pipedrive</text>
+</svg>

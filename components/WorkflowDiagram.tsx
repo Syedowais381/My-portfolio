@@ -17,7 +17,8 @@ function PlatformLogo({ platform }: { platform: PlatformIcon }) {
         alt={platform.name}
         width={platform.wide ? 88 : 36}
         height={36}
-        loading="lazy"
+        loading="eager"
+        decoding="async"
         className={platform.wide ? "arch-platform-wide" : undefined}
       />
     </div>

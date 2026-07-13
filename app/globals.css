@@ -28,10 +28,16 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
+  min-width: 0;
+  max-width: 100%;
   background:
     radial-gradient(circle at 10% -10%, rgba(14, 94, 78, 0.1) 0, rgba(11, 15, 14, 0) 45%),
     radial-gradient(circle at 90% 120%, rgba(15, 61, 46, 0.08) 0, rgba(11, 15, 14, 0) 50%),
@@ -67,6 +73,8 @@ main {
 .container {
   width: min(var(--container), calc(100% - var(--space-4) * 2));
   margin: 0 auto;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .section {
@@ -459,9 +467,8 @@ h2::after {
   box-shadow: inset 0 1px 0 rgba(80, 212, 157, 0.14);
   overflow: hidden;
   transition: border-color 400ms ease, box-shadow 400ms ease;
-  contain: layout style paint;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 720px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .arch-overview.is-animated {
@@ -471,20 +478,19 @@ h2::after {
     0 16px 40px rgba(0, 0, 0, 0.14);
 }
 
-.arch-overview:not(.is-animated) .arch-card-pipeline,
-.arch-overview:not(.is-animated) .arch-card-operation,
-.arch-overview:not(.is-animated) .arch-flow-arrow,
-.arch-overview:not(.is-animated) .arch-flow-fork {
-  opacity: 0;
-  transform: translateY(18px);
-}
-
 .arch-overview.is-animated .arch-card-pipeline,
 .arch-overview.is-animated .arch-card-operation,
 .arch-overview.is-animated .arch-flow-arrow,
 .arch-overview.is-animated .arch-flow-fork {
   animation: arch-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform, opacity;
+}
+
+.arch-overview:not(.is-animated) .arch-card-pipeline,
+.arch-overview:not(.is-animated) .arch-card-operation,
+.arch-overview:not(.is-animated) .arch-flow-arrow,
+.arch-overview:not(.is-animated) .arch-flow-fork {
+  opacity: 1;
+  transform: none;
 }
 
 .arch-overview.is-animated .arch-card-pipeline {
@@ -583,12 +589,21 @@ h2::after {
   justify-content: center;
   gap: var(--space-2);
   margin-top: var(--space-3);
+  max-width: 100%;
+  min-width: 0;
 }
 
 .arch-platform {
   display: grid;
   place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 36px;
   transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arch-platform:has(.arch-platform-wide) {
+  width: min(88px, 24vw);
 }
 
 .arch-platform:hover {
@@ -598,6 +613,7 @@ h2::after {
 .arch-platform img {
   display: block;
   width: auto;
+  max-width: 100%;
   height: 36px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
@@ -606,7 +622,7 @@ h2::after {
 .arch-platform-wide {
   height: 32px !important;
   width: auto;
-  max-width: 110px;
+  max-width: 100%;
 }
 
 .arch-card-pipeline .arch-platform img {
@@ -1362,10 +1378,29 @@ h2::after {
   transform: translate3d(0, 0, 0);
 }
 
+.hero-layout,
+.hero-content,
+.arch-pipeline,
+.arch-operations,
 .freelance-project,
-.project-item {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
+.freelance-project-header,
+.project-item,
+.project-header {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hero h1,
+.hero h1 span,
+.hero-subtext,
+.freelance-project-summary,
+.section-intro {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.project-outcomes {
+  max-width: 100%;
 }
 
 @keyframes portrait-float {

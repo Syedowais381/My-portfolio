@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Workflow as WorkflowIcon } from "@/components/Icons";
 import type { OperationBlock, PipelineStage, PlatformIcon, WorkflowConfig } from "@/lib/workflow-types";
 import { getPlatformLogoSrc } from "@/lib/workflow-types";
 
@@ -8,111 +9,90 @@ type WorkflowDiagramProps = {
   workflow: WorkflowConfig;
 };
 
-function PlatformLogo({ platform }: { platform: PlatformIcon }) {
+function PlatformLogos({ platforms }: { platforms?: PlatformIcon[] }) {
+  if (!platforms?.length) {
+    return null;
+  }
+
   return (
-    <div className="arch-platform" title={platform.name}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={getPlatformLogoSrc(platform)}
-        alt={platform.name}
-        width={platform.wide ? 88 : 36}
-        height={36}
-        loading="eager"
-        decoding="async"
-        className={platform.wide ? "arch-platform-wide" : undefined}
-      />
+    <div className="wf-logos">
+      {platforms.map((platform) => (
+        <span className="wf-logo" key={platform.id} title={platform.name}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={getPlatformLogoSrc(platform)}
+            alt={platform.name}
+            className={platform.wide ? "is-wide" : undefined}
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+      ))}
     </div>
   );
 }
 
-function FlowArrow({ index }: { index: number }) {
+function TagList({ items }: { items?: string[] }) {
+  if (!items?.length) {
+    return null;
+  }
+
   return (
-    <div className="arch-flow-arrow" style={{ "--flow-index": index } as React.CSSProperties} aria-hidden="true">
-      <span className="arch-flow-line" />
-      <svg className="arch-flow-chevron" viewBox="0 0 12 12" fill="none">
-        <path
-          d="M1.5 2.5L6 9.5L10.5 2.5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
+    <ul className="wf-tags">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
   );
 }
 
-function PipelineCard({ stage, hubStageId, index }: { stage: PipelineStage; hubStageId?: string; index: number }) {
-  const isHub = stage.id === hubStageId;
-
+function StageNode({
+  stage,
+  index,
+  isHub,
+  isLast,
+}: {
+  stage: PipelineStage;
+  index: number;
+  isHub: boolean;
+  isLast: boolean;
+}) {
   return (
-    <article
-      className={`arch-card arch-card-pipeline ${isHub ? "arch-card-hub" : ""}`.trim()}
-      style={{ "--stage-index": index } as React.CSSProperties}
-    >
-      <div className="arch-card-head">
-        <h3>{stage.title}</h3>
-        <p>{stage.subtitle}</p>
+    <li className="wf-node" style={{ "--i": index } as React.CSSProperties}>
+      <div className="wf-rail">
+        <span className="wf-dot">{String(index + 1).padStart(2, "0")}</span>
+        {!isLast ? <span className="wf-line" /> : null}
       </div>
-      {stage.platforms?.length ? (
-        <div className="arch-platform-row">
-          {stage.platforms.map((platform) => (
-            <PlatformLogo key={platform.id} platform={platform} />
-          ))}
+
+      <article className={`wf-card ${isHub ? "is-hub" : ""}`.trim()}>
+        <div className="wf-card-head">
+          <h4>{stage.title}</h4>
+          {isHub ? <span className="wf-hub-badge">Orchestrator</span> : null}
         </div>
-      ) : null}
-      {stage.items?.length ? (
-        <ul className="arch-tag-list">
-          {stage.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      ) : null}
-    </article>
+        <p>{stage.subtitle}</p>
+        <PlatformLogos platforms={stage.platforms} />
+        <TagList items={stage.items} />
+      </article>
+    </li>
   );
 }
 
 function OperationCard({ block, index }: { block: OperationBlock; index: number }) {
   return (
-    <article className="arch-card arch-card-operation" style={{ "--ops-index": index } as React.CSSProperties}>
-      <h3>{block.title}</h3>
-      {block.platforms?.length ? (
-        <div className="arch-platform-row">
-          {block.platforms.map((platform) => (
-            <PlatformLogo key={platform.id} platform={platform} />
-          ))}
-        </div>
-      ) : null}
-      <ul className="arch-tag-list">
-        {block.items.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
-function FlowFork({ branchCount }: { branchCount: number }) {
-  return (
-    <div
-      className="arch-flow-fork"
-      style={{ "--fork-branches": branchCount } as React.CSSProperties}
-      aria-hidden="true"
-    >
-      <span className="arch-flow-fork-stem" />
-      <span className="arch-flow-fork-bar" />
-      <div className="arch-flow-fork-branches">
-        {Array.from({ length: branchCount }).map((_, index) => (
-          <span key={index} />
-        ))}
+    <article className="wf-op" style={{ "--i": index } as React.CSSProperties}>
+      <div className="wf-op-head">
+        <span className="wf-op-idx">{String.fromCharCode(65 + index)}</span>
+        <h4>{block.title}</h4>
       </div>
-    </div>
+      <PlatformLogos platforms={block.platforms} />
+      <TagList items={block.items} />
+    </article>
   );
 }
 
 export default function WorkflowDiagram({ workflow }: WorkflowDiagramProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [live, setLive] = useState(false);
   const { pipelineStages, operationBlocks, hubStageId } = workflow;
 
   useEffect(() => {
@@ -125,37 +105,59 @@ export default function WorkflowDiagram({ workflow }: WorkflowDiagramProps) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisible(true);
+            setLive(true);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.08 },
     );
 
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div ref={ref} className={`arch-overview ${visible ? "is-animated" : ""}`.trim()}>
-      <div className="arch-overview-glow" aria-hidden="true" />
+  const columns = operationBlocks.length;
 
-      <div className="arch-pipeline">
-        {pipelineStages.map((stage, index) => (
-          <div key={stage.id} className="arch-pipeline-step">
-            <PipelineCard stage={stage} hubStageId={hubStageId} index={index} />
-            {index < pipelineStages.length - 1 ? <FlowArrow index={index} /> : null}
-          </div>
-        ))}
+  return (
+    <div className={`wf ${live ? "is-live" : ""}`.trim()} ref={ref}>
+      <span className="wf-aurora" aria-hidden="true" />
+      <span className="wf-grid" aria-hidden="true" />
+
+      <div className="wf-bar">
+        <span className="wf-bar-title mono">
+          <WorkflowIcon size={15} />
+          Pipeline · {pipelineStages.length} stages
+        </span>
+        <span className="pill pill-live">
+          <span className="dot" aria-hidden="true" />
+          Live flow
+        </span>
       </div>
 
-      <FlowFork branchCount={operationBlocks.length} />
+      <ol className="wf-pipeline">
+        {pipelineStages.map((stage, index) => (
+          <StageNode
+            key={stage.id}
+            stage={stage}
+            index={index}
+            isHub={stage.id === hubStageId}
+            isLast={index === pipelineStages.length - 1}
+          />
+        ))}
+      </ol>
 
-      <div
-        className="arch-operations"
-        style={{ "--ops-columns": operationBlocks.length } as React.CSSProperties}
-      >
+      <div className="wf-fork" aria-hidden="true">
+        <span className="wf-fork-stem" />
+        <span className="wf-fork-bar" />
+        <div className="wf-fork-drops" style={{ "--cols": columns } as React.CSSProperties}>
+          {operationBlocks.map((block, index) => (
+            <span key={block.id} style={{ "--d": index } as React.CSSProperties} />
+          ))}
+        </div>
+      </div>
+
+      <div className="wf-ops" style={{ "--cols": columns } as React.CSSProperties}>
         {operationBlocks.map((block, index) => (
           <OperationCard key={block.id} block={block} index={index} />
         ))}

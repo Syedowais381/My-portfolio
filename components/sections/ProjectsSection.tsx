@@ -1,5 +1,8 @@
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
+import SpotlightCard from "@/components/SpotlightCard";
 
 type Project = {
   title: string;
@@ -11,8 +14,6 @@ type Project = {
   outcomes?: string[];
   details?: string[];
   screenshots?: { src: string; alt: string }[];
-  screenshotPlaceholders?: number;
-  featuredPreview?: boolean;
   video?: { src: string; title: string };
   liveUrl?: string;
 };
@@ -40,7 +41,6 @@ const projects: Project[] = [
       "Workflow: guided setup, module selection, role configuration, data import, and day-to-day execution.",
     ],
     liveUrl: "https://rig-base.vercel.app/",
-    featuredPreview: true,
     screenshots: [
       { src: "/projects/rig-base-1.png", alt: "Rig Base homepage hero and workspace preview" },
       { src: "/projects/rig-base-modules.png", alt: "Rig Base platform capabilities and ERP modules" },
@@ -52,7 +52,8 @@ const projects: Project[] = [
     role: "Full-stack engineer",
     stack: "React, Spring Boot, PostgreSQL, Docker, Railway",
     features: "Role-based modules, secure auth flows, and optimized API contracts.",
-    architecture: "Frontend consumes versioned REST endpoints from a modular Spring Boot service layer with PostgreSQL persistence.",
+    architecture:
+      "Frontend consumes versioned REST endpoints from a modular Spring Boot service layer with PostgreSQL persistence.",
     outcomes: [
       "Improved dashboard response behavior with optimized API contracts.",
       "Reduced deployment friction through a consistent Docker release flow.",
@@ -114,104 +115,134 @@ const projects: Project[] = [
   },
 ];
 
+function ProjectMedia({ project }: { project: Project }) {
+  if (project.video) {
+    return (
+      <div className="pj-media-col">
+        <video className="pj-video" controls preload="metadata">
+          <source src={project.video.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p className="pj-media-note">{project.video.title}</p>
+      </div>
+    );
+  }
+
+  if (!project.screenshots?.length) {
+    return null;
+  }
+
+  return (
+    <div className="pj-media-col">
+      {project.screenshots.map((shot) =>
+        project.liveUrl ? (
+          <a
+            key={shot.src}
+            className="pj-media-link"
+            href={project.liveUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${project.title} live site`}
+          >
+            <figure className="pj-media">
+              <Image src={shot.src} alt={shot.alt} width={960} height={600} />
+              <span className="pj-media-badge">
+                Visit live
+                <ArrowUpRight size={13} />
+              </span>
+            </figure>
+          </a>
+        ) : (
+          <figure className="pj-media" key={shot.src}>
+            <Image src={shot.src} alt={shot.alt} width={960} height={600} />
+          </figure>
+        ),
+      )}
+    </div>
+  );
+}
+
 export default function ProjectsSection() {
   return (
-    <section id="web-dev" className="section projects">
+    <section id="web-dev" className="section">
       <div className="container">
-        <Reveal>
-          <p className="projects-eyebrow">Product Engineering</p>
-          <h2>Web Dev Projects</h2>
-          <p className="section-intro">
-            Full-stack applications and product builds — from architecture and implementation to deployment, with a
-            case-study mindset focused on outcomes.
-          </p>
-        </Reveal>
+        <SectionHeading
+          index="03 / 06"
+          kicker="Product engineering"
+          title="Web dev projects"
+          intro="Full-stack applications and product builds — from architecture and implementation through deployment, written up as case studies rather than screenshots."
+        />
+
         <div className="project-list">
           {projects.map((project, index) => (
-            <Reveal key={project.title} className="project-item" delayMs={index * 70}>
-              <div className="project-header">
-                <h3>{project.title}</h3>
-                <p>{project.summary}</p>
-              </div>
-              <p>
-                <span>Role:</span> {project.role}
-              </p>
-              <p>
-                <span>Stack:</span> {project.stack}
-              </p>
-              <p>
-                <span>Key features:</span> {project.features}
-              </p>
-              <p>
-                <span>Architecture:</span> {project.architecture}
-              </p>
-              {project.liveUrl ? (
-                <p>
-                  <span>Live:</span>{" "}
-                  <a className="project-link" href={project.liveUrl} target="_blank" rel="noreferrer">
-                    {project.liveUrl}
-                  </a>
-                </p>
-              ) : null}
-              {project.details ? (
-                <ul className="project-deep-dive">
-                  {project.details.map((detail) => (
-                    <li key={detail}>{detail}</li>
-                  ))}
-                </ul>
-              ) : null}
-              {project.outcomes ? (
-                <div className="project-outcomes">
-                  {project.outcomes.map((outcome) => (
-                    <span key={outcome}>{outcome}</span>
-                  ))}
-                </div>
-              ) : null}
-              {project.screenshots && project.screenshots.length > 0 ? (
-                <div
-                  className={`screenshot-row ${project.featuredPreview ? "screenshot-row-featured" : ""}`.trim()}
-                  aria-label={`${project.title} screenshots`}
-                >
-                  {project.screenshots.map((shot) => (
-                    project.liveUrl ? (
-                      <a
-                        key={shot.src}
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="project-media-link"
-                        aria-label={`Open ${project.title} live website`}
-                      >
-                        <figure className="project-media">
-                          <Image src={shot.src} alt={shot.alt} width={960} height={600} />
-                        </figure>
-                      </a>
-                    ) : (
-                      <figure key={shot.src} className="project-media">
-                        <Image src={shot.src} alt={shot.alt} width={960} height={600} />
-                      </figure>
-                    )
-                  ))}
-                </div>
-              ) : null}
-              {!project.screenshots && project.screenshotPlaceholders ? (
-                <div className="screenshot-row" aria-label={`${project.title} screenshot placeholders`}>
-                  {Array.from({ length: project.screenshotPlaceholders }).map((_, idx) => (
-                    <div key={`${project.title}-placeholder-${idx}`} className="screenshot-placeholder">
-                      Screenshot Placeholder
+            <Reveal key={project.title} delayMs={index * 60} variant="up">
+              <SpotlightCard className={`pj ${index % 2 === 1 ? "pj-reverse" : ""}`.trim()}>
+                <div className="pj-inner">
+                  <div className="pj-body">
+                    <div className="pj-head">
+                      <span className="pj-idx">{String(index + 1).padStart(2, "0")}</span>
+                      <h3>{project.title}</h3>
                     </div>
-                  ))}
+
+                    <p className="pj-summary">{project.summary}</p>
+
+                    <div className="pj-meta">
+                      <div className="pj-meta-row">
+                        <span className="pj-meta-key">Role</span>
+                        <span className="pj-meta-val">{project.role}</span>
+                      </div>
+                      <div className="pj-meta-row">
+                        <span className="pj-meta-key">Features</span>
+                        <span className="pj-meta-val">{project.features}</span>
+                      </div>
+                      <div className="pj-meta-row">
+                        <span className="pj-meta-key">Architecture</span>
+                        <span className="pj-meta-val">{project.architecture}</span>
+                      </div>
+                    </div>
+
+                    <div className="pj-tags">
+                      {project.stack.split(",").map((tech) => (
+                        <span className="chip" key={tech}>
+                          {tech.trim()}
+                        </span>
+                      ))}
+                    </div>
+
+                    {project.details ? (
+                      <ul className="pj-points">
+                        {project.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+
+                    {project.outcomes ? (
+                      <div className="pj-outcomes">
+                        {project.outcomes.map((outcome) => (
+                          <span key={outcome}>{outcome}</span>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {project.liveUrl ? (
+                      <div className="pj-actions">
+                        <a
+                          className="btn btn-ghost btn-sm"
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Visit live site
+                          <ArrowUpRight size={15} />
+                        </a>
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <ProjectMedia project={project} />
                 </div>
-              ) : null}
-              {project.video ? (
-                <div className="project-video-wrap">
-                  <video className="project-video" controls preload="metadata">
-                    <source src={project.video.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                  <p className="media-note">{project.video.title}</p>
-                </div>
-              ) : null}
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
